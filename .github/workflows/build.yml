@@ -1,0 +1,22 @@
+name: Node.js CI - Build
+
+on:
+  push:
+    branches: [ master, stage,dev ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Yarn CLI
+      uses: CultureHQ/actions-yarn@v1.0.1
+    - run: yarn install
+    - run: yarn lint
+    - run: yarn build
