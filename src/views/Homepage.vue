@@ -1,15 +1,19 @@
 <template>
   <div class="vp-homepage">
-    <div class="grid grid-cols-6 space-y-2">
+    <div v-if="!$store.state.hangman.status" class="grid grid-cols-6 space-y-2">
       <div class="col-span-6 md:col-span-2">
         <hangman></hangman>
       </div>
       <div class="col-span-6 md:col-span-4">
         <letterbox></letterbox>
       </div>
-      <div class="col-span-6">
+      <div class="col-span-6 md:col-span-3">
         <letterselect></letterselect>
       </div>
+    </div>
+    <div v-else class="">
+      <div v-if="$store.state.hangman.status == 'lost'">Verloren</div>
+      <div v-if="$store.state.hangman.status == 'won'">Gewonnen</div>
     </div>
   </div>
 </template>

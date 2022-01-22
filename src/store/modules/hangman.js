@@ -1,5 +1,6 @@
 export default {
     state: {
+        question: 'Wie ist mein Name',
         result: 'jonathan',
         letters: {
             a: false,
@@ -29,15 +30,25 @@ export default {
             x: false,
             z: false,
         },
-        errors: 0
+        errors: 0,
+        success: 0
     },
     mutations: {
         "show": function (state, item) {
-            if(state.result.includes(item)){
-                state.letters[item] = true;
+            state.letters[item] = true;
+            if (state.result.includes(item)) {
+                state.success += (state.result.match(new RegExp(item, 'g')) || []).length
             }
-            else{
+            else {
                 state.errors++;
+                if (state.errors == state.result.length) {
+                    state.status = 'lost';
+                }
+            }
+
+            if (state.result.length == state.success) {
+
+                state.status = 'won';
             }
         }
     }
